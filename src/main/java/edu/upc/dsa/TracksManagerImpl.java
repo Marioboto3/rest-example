@@ -1,9 +1,6 @@
 package edu.upc.dsa;
 
-import edu.upc.dsa.models.Album;
-import edu.upc.dsa.models.AlbumTO;
-import edu.upc.dsa.models.Autor;
-import edu.upc.dsa.models.Track;
+import edu.upc.dsa.models.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,6 +74,21 @@ public class TracksManagerImpl implements TracksManager {
         }
         else{return null;}*/
 
+    }
+
+    @Override
+    public AutorTO passAutorToAutorTO(Autor autor) {
+        AutorTO autorTO = new AutorTO();
+        autorTO.setNombre(autor.getNombre());
+        autorTO.setApellido(autor.getApellido());
+        autorTO.setDni(autor.getDni());
+        List<String>lista=new ArrayList<>();
+        for(Track t: autor.getList())
+        {
+            lista.add(t.getTitle());
+        }
+        autorTO.setList(lista);
+        return autorTO;
     }
 
     public Track addTrack(Track t) {
@@ -171,6 +183,16 @@ public class TracksManagerImpl implements TracksManager {
             return lista;
         }
         return null;
+    }
+
+    @Override
+    public TrackTO passTracktoTrackTO(Track t) {
+        TrackTO trackTO = new TrackTO();
+        trackTO.setTitle(t.getTitle());
+        trackTO.setAutor(t.getAutor());
+        trackTO.setId(t.getId());
+        trackTO.setTituloAlbum(t.getTituloAlbum());
+        return trackTO;
     }
 
     @Override

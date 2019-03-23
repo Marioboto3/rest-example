@@ -29,8 +29,6 @@ public class TracksService {
             this.tm.addTrack("Despacito", "Luis Fonsi","Al 2");
             this.tm.addTrack("Enter Sandman", "Metallica","Al3");
         }
-
-
     }
 
     @GET

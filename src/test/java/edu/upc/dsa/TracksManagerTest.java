@@ -1,9 +1,6 @@
 package edu.upc.dsa;
 
-import edu.upc.dsa.models.Album;
-import edu.upc.dsa.models.AlbumTO;
-import edu.upc.dsa.models.Autor;
-import edu.upc.dsa.models.Track;
+import edu.upc.dsa.models.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -83,6 +80,16 @@ public class TracksManagerTest {
         AlbumTO aTO = tmi.passAlbumToAlbumTO(a);
         assertEquals(1,aTO.getSize());
         assertEquals("123",aTO.getTitle());
+    }
+    @Test
+    public void passAutorToAutorTO(){
+        Autor a=tmi.findByNameAutor("Rafael");
+        AutorTO aTO= tmi.passAutorToAutorTO(a);
+        assertEquals(3,aTO.getsize());
+        assertEquals("Rafael",aTO.getNombre());
+    }
+    @Test
+    public void passTrackToTrackTO(){
     }
 
 }

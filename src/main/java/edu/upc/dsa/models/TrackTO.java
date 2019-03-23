@@ -2,9 +2,7 @@ package edu.upc.dsa.models;
 
 import edu.upc.dsa.util.RandomUtils;
 
-import java.util.List;
-
-public class Track {
+public class TrackTO {
 
     String id;
     String title;
@@ -12,11 +10,10 @@ public class Track {
     String tituloAlbum;
 
 
-    public Track() {
-        this.id = RandomUtils.getId();
+    public TrackTO() {
     }
 
-    public Track(String title, String autor, String tituloAlbum) {
+    public TrackTO(String title, String autor, String tituloAlbum) {
         this.title = title;
         this.autor = autor;
         this.tituloAlbum=tituloAlbum;
