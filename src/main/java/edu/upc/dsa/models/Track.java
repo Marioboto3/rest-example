@@ -2,21 +2,33 @@ package edu.upc.dsa.models;
 
 import edu.upc.dsa.util.RandomUtils;
 
+import java.util.List;
+
 public class Track {
 
     String id;
     String title;
-    String singer;
-    static int lastId;
+    String autor;
+    String tituloAlbum;
+
 
     public Track() {
         this.id = RandomUtils.getId();
     }
 
-    public Track(String title, String singer) {
-        this();
-        this.setSinger(singer);
-        this.setTitle(title);
+    public Track(String title, String autor, String tituloAlbum) {
+        this.title = title;
+        this.autor = autor;
+        this.tituloAlbum=tituloAlbum;
+        this.id = RandomUtils.getId();
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
 
     public String getId() {
@@ -36,17 +48,11 @@ public class Track {
         this.title = title;
     }
 
-    public String getSinger() {
-        return singer;
-    }
 
-    public void setSinger(String singer) {
-        this.singer = singer;
-    }
 
     @Override
     public String toString() {
-        return "Track [id="+id+", title=" + title + ", singer=" + singer +"]";
+        return "Track [id="+id+", title=" + title + ", singer=" + autor +"]";
     }
 
 }

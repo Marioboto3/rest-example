@@ -25,9 +25,9 @@ public class TracksService {
     public TracksService() {
         this.tm = TracksManagerImpl.getInstance();
         if (tm.size()==0) {
-            this.tm.addTrack("La Barbacoa", "Georgie Dann");
-            this.tm.addTrack("Despacito", "Luis Fonsi");
-            this.tm.addTrack("Enter Sandman", "Metallica");
+            this.tm.addTrack("La Barbacoa", "Georgie Dann", "Al1");
+            this.tm.addTrack("Despacito", "Luis Fonsi","Al 2");
+            this.tm.addTrack("Enter Sandman", "Metallica","Al3");
         }
 
 
@@ -107,7 +107,7 @@ public class TracksService {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response newTrack(Track track) {
 
-        if (track.getSinger()==null || track.getTitle()==null)  return Response.status(500).entity(track).build();
+        if (track.getAutor()==null || track.getTitle()==null)  return Response.status(500).entity(track).build();
         this.tm.addTrack(track);
         return Response.status(201).entity(track).build();
     }
