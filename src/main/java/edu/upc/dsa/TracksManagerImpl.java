@@ -1,6 +1,7 @@
 package edu.upc.dsa;
 
 import edu.upc.dsa.models.Album;
+import edu.upc.dsa.models.AlbumTO;
 import edu.upc.dsa.models.Autor;
 import edu.upc.dsa.models.Track;
 
@@ -96,6 +97,21 @@ public class TracksManagerImpl implements TracksManager {
         else return null;
 
     }
+
+    @Override
+    public AlbumTO passAlbumToAlbumTO(Album album) {
+        AlbumTO albumTO = new AlbumTO();
+        albumTO.setAño(album.getAño());
+        albumTO.setTitle(album.getTitulo());
+        List<String> lista = new ArrayList<>();
+        for (Track t : album.getList())
+        {
+            lista.add(t.getTitle());
+        }
+        albumTO.setTracks(lista);
+        return albumTO;
+    }
+
     public Track getTrack(String id) {
         logger.info("getTrack("+id+")");
 

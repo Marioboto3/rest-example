@@ -1,6 +1,7 @@
 package edu.upc.dsa;
 
 import edu.upc.dsa.models.Album;
+import edu.upc.dsa.models.AlbumTO;
 import edu.upc.dsa.models.Autor;
 import edu.upc.dsa.models.Track;
 
@@ -19,6 +20,7 @@ public interface TracksManager {
     //ALBUM
     public Album addAlbum (String titulo, int año);
     public Album getAlbum(String nombre);
+    public AlbumTO passAlbumToAlbumTO(Album album);
     //AUTOR
     public Autor addAutor(String nombre, String apellido, int dni);
    //FIND
