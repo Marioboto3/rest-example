@@ -20,6 +20,8 @@ public class TracksManagerTest {
 
         Album a=tmi.addAlbum("123",2000);
         Album b=tmi.addAlbum("Vente",1900);
+        Album c=tmi.addAlbum("Baby",1800);
+
 
         Autor s= tmi.addAutor("Natos","Tada",12345678);
         Autor t= tmi.addAutor("Rafael","Pele",87654321);
@@ -27,6 +29,7 @@ public class TracksManagerTest {
         Track m = tmi.addTrack("Balada","Rafael","Vente");
         Track n = tmi.addTrack("Problemas","Natos","123");
         Track o = tmi.addTrack("Host","Rafael","Vente");
+        Track p = tmi.addTrack("Fairplay","Rafael","Baby");
     }
     @Test
     public void findByIdTest(){
@@ -71,7 +74,7 @@ public class TracksManagerTest {
     @Test
     public void getTracksAutorTest(){
         List<Track> lista = tmi.getTracksAutor("Rafael");
-        assertEquals(2,lista.size());
+        assertEquals(3,lista.size());
     }
 
 }
