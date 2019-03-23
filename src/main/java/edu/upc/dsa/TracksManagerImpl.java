@@ -40,8 +40,10 @@ public class TracksManagerImpl implements TracksManager {
         Track t= new Track(title,singer,tituloAlbum);
         logger.info("new Track " + t);
         Album a = findByStringAlbum(tituloAlbum);
+        Autor b = findByNameAutor(singer);
         if(a != null) {
             a.añadirTrack(t);
+            b.añadirTrack(t);
             logger.info("new Track added");
             return t;
         }
@@ -84,6 +86,16 @@ public class TracksManagerImpl implements TracksManager {
         return t;
     }
 
+    public Album getAlbum(String titulo)
+    {
+        logger.info("getAlbum("+titulo+")");
+        Album a= findByStringAlbum(titulo);
+        if(a!=null) {
+            return a;
+        }
+        else return null;
+
+    }
     public Track getTrack(String id) {
         logger.info("getTrack("+id+")");
 
@@ -133,23 +145,31 @@ public class TracksManagerImpl implements TracksManager {
 
         return t;
     }
-    @Override
-    public Album getAlbum(Album nombre) {
-        return null;
-    }
 
     @Override
-    public List<Track> dameTracksAutor(int dni) {
-        return null;
-    }
-
-    @Override
-    public Track findById(String id) {
-        Track e = this.tracks.get(Integer.parseInt(id));
-        if(e!=null) {
-            return e;
+    public List<Track> getTracksAutor(String nombre) {
+        Autor a = findByNameAutor(nombre);
+        if(a!=null)
+        {
+            List<Track> lista=a.getList();
+            return lista;
         }
-     else return null;
+        return null;
+    }
+
+    @Override
+    public Track findByIdTrack(String id, String nombreAlbum) {
+        Album album =findByStringAlbum(nombreAlbum);
+        List<Track> lista = album.getList();
+        Track track=null;
+        for(Track t: lista)
+        {
+            if (t.getId().equals(id)){
+                track=t;
+            }
+        }
+        return track;
+
     }
 
     @Override
@@ -163,7 +183,7 @@ public class TracksManagerImpl implements TracksManager {
     }
 
     @Override
-    public Autor findByName(String nombre) {
+    public Autor findByNameAutor(String nombre) {
         Autor a = this.autores.get(nombre);
         if(a!=null)
         {

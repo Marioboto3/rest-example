@@ -8,20 +8,24 @@ import java.util.List;
 
 public interface TracksManager {
 
-
-    public Track addTrack(String title, String singer, String tituloAlbum);
     public Track addTrack(Track t);
+    //TRACK
+    public Track addTrack(String title, String singer, String tituloAlbum);
     public Track getTrack(String id);
-    public List<Track> findAll();
     public void deleteTrack(String id);
     public Track updateTrack(Track t);
-    public Autor addAutor(String nombre, String apellido, int dni);
+    public List<Track> findAll();
+    public List<Track> getTracksAutor(String nombre);
+    //ALBUM
     public Album addAlbum (String titulo, int año);
-    public Album getAlbum(Album nombre);
-    public List<Track> dameTracksAutor(int dni);
-    public Track findById(String id);
+    public Album getAlbum(String nombre);
+    //AUTOR
+    public Autor addAutor(String nombre, String apellido, int dni);
+   //FIND
+    public Track findByIdTrack(String id,String tituloAlbum);
     public Album findByStringAlbum (String tituloAlbum);
-    public Autor findByName(String nombre);
+    public Autor findByNameAutor(String nombre);
+    //
     public int size();
 
 }

@@ -6,49 +6,72 @@ import edu.upc.dsa.models.Track;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class TracksManagerTest {
     TracksManager tmi;
-    Album a;
-    Autor s;
     @Before
     public void Initializate(){
-        a = new Album(2000, "123");
+
         tmi = TracksManagerImpl.getInstance();
+
+        Album a=tmi.addAlbum("123",2000);
+        Album b=tmi.addAlbum("Vente",1900);
+
+        Autor s= tmi.addAutor("Natos","Tada",12345678);
+        Autor t= tmi.addAutor("Rafael","Pele",87654321);
+
+        Track m = tmi.addTrack("Balada","Rafael","Vente");
+        Track n = tmi.addTrack("Problemas","Natos","123");
+        Track o = tmi.addTrack("Host","Rafael","Vente");
     }
-    /*@Test
-    public void findById(){
-        a=tmi.addAlbum("123",2000);
-        Track t = new Track("Balada","Rafael","123");
-    }*/
+    @Test
+    public void findByIdTest(){
+
+        Album c = tmi.findByStringAlbum("123");
+        Track t = tmi.addTrack("Miprima","Natos","123");
+        String id =t.getId();
+        c.añadirTrack(t);
+        Track track = tmi.findByIdTrack(id,"123");
+        assertEquals("Miprima", track.getTitle());
+    }
     @Test
     public void findByNameAutorTest(){
-        s=tmi.addAutor("Pepe","Palotes",1234);
-        Autor autor=tmi.findByName("Pepe");
-        assertEquals("Pepe",autor.getNombre());
+        Autor autor=tmi.findByNameAutor("Rafael");
+        assertEquals("Rafael",autor.getNombre());
     }
     @Test
     public void findByStringAlbum(){
-        a=tmi.addAlbum("123",2000);
-        String titulo="123";
-        Album b = tmi.findByStringAlbum(titulo);
-        assertEquals(a.getTitulo(),b.getTitulo());
+        Album b = tmi.findByStringAlbum("123");
+        assertEquals("123",b.getTitulo());
     }
     @Test
     public void añadirAlbumTest(){
-        a=tmi.addAlbum("123",2000);
+       Album a=tmi.findByStringAlbum("123");
         assertEquals("123",a.getTitulo());
     }
     @Test
     public void añadirTrackTest(){
-        a=tmi.addAlbum("123",2000);
-        tmi.addTrack("Problemas", "Natos", "123");
+        Album a=tmi.findByStringAlbum("123");
         assertEquals(1, a.getSize());
     }
     @Test
     public void añadirAutorTest(){
-        s=tmi.addAutor("Pepe","Palotes",1234);
-        assertEquals("Pepe",s.getNombre());
+        Autor s = tmi.findByNameAutor("Rafael");
+        assertEquals("Rafael",s.getNombre());
     }
+    @Test
+    public void getAlbumTest(){
+        Album a = tmi.getAlbum("123");
+        assertEquals(2000,a.getAño());
+    }
+    @Test
+    public void getTracksAutorTest(){
+        List<Track> lista = tmi.getTracksAutor("Rafael");
+        assertEquals(2,lista.size());
+    }
+
 }

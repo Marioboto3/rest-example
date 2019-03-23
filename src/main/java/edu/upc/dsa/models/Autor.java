@@ -1,5 +1,6 @@
 package edu.upc.dsa.models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -7,15 +8,21 @@ public class Autor {
     String nombre;
     String apellido;
     int dni;
-    HashMap<String,Track> list;
+    List<Track> list;
 
     public Autor(String nombre, String apellido, int dni) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
+        this.list=new ArrayList<>();
+
     }
     public Autor(){
-       this.list=new HashMap<String, Track>();
+       this.list=new ArrayList<>();
+    }
+
+    public List<Track> getList() {
+        return list;
     }
 
     public String getNombre() {
@@ -40,5 +47,9 @@ public class Autor {
 
     public void setDni(int dni) {
         this.dni = dni;
+    }
+
+    public void añadirTrack(Track t){
+        this.list.add(t);
     }
 }
