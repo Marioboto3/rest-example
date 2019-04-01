@@ -24,23 +24,23 @@ public class AutorService {
     public AutorService() {
         this.tm = TracksManagerImpl.getInstance();
         if (tm.size() == 0) {
-            this.tm.addTrack("La Barbacoa", "Georgie", "Al 1");
-            this.tm.addTrack("Despacito", "Luis", "Al 2");
-            this.tm.addTrack("Enter Sandman", "Metallica", "Al3");
+            tm.addAlbum("123",2000);
+            tm.addAlbum("Vente",1900);
+            tm.addAlbum("Baby",1800);
 
-            this.tm.addAlbum("Al 1", 2000);
-            this.tm.addAlbum("Al 2", 1900);
-            this.tm.addAlbum("Al 3", 1800);
+            tm.addAutor("Natos","Tada",12345678);
+            tm.addAutor("Rafael","Pele",87654321);
 
-            this.tm.addAutor("Luis", "Fonsi", 123456789);
-            this.tm.addAutor("Georgie", "Dann", 132547698);
-            this.tm.addAutor("Metallica", "Metals", 987654321);
+            tm.addTrack("Balada","Rafael","Vente");
+            tm.addTrack("Problemas","Natos","123");
+            tm.addTrack("Host","Rafael","Vente");
+            tm.addTrack("Fairplay","Rafael","Baby");
         }
     }
     @GET
     @ApiOperation(value = "get Autor", notes = "asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful", response = AlbumTO.class, responseContainer="List"),
+            @ApiResponse(code = 201, message = "Successful", response = AutorTO.class, responseContainer="List"),
     })
     @Path("/{autor}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -49,18 +49,16 @@ public class AutorService {
         Autor autor = this.tm.getAutor(nameAutor);
         AutorTO autorTO = this.tm.passAutorToAutorTO(autor);
 
-        GenericEntity<AutorTO> entity = new GenericEntity<AutorTO>(autorTO) {};
-        return Response.status(201).entity(entity).build();
-
+        return Response.status(201).entity(autorTO).build();
     }
     @GET
     @ApiOperation(value = "get all Autor's tracks", notes = "asdasd")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful", response = Track.class, responseContainer="List"),
+            @ApiResponse(code = 201, message = "Successful", response = TrackTO.class, responseContainer="List"),
     })
-    @Path("/{autor}")
+    @Path("/{autor}/tracks")//Tiene que ser /tracks sino es exactamente igual que el getAutor /autor y no los distingue
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTracksAlbum(@PathParam("autor") String nameAutor) {
+    public Response getTracksAutor(@PathParam("autor") String nameAutor) {
 
         List<TrackTO> tracksTO = this.tm.getTracksAutor(nameAutor);
         GenericEntity<List<TrackTO>> entity = new GenericEntity<List<TrackTO>>(tracksTO) {};

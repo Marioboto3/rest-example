@@ -3,6 +3,8 @@ package edu.upc.dsa.services;
 
 import edu.upc.dsa.TracksManager;
 import edu.upc.dsa.TracksManagerImpl;
+import edu.upc.dsa.models.Album;
+import edu.upc.dsa.models.Autor;
 import edu.upc.dsa.models.Track;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,9 +27,19 @@ public class TracksService {
     public TracksService() {
         this.tm = TracksManagerImpl.getInstance();
         if (tm.size()==0) {
-            this.tm.addTrack("La Barbacoa", "Georgie Dann", "Al1");
-            this.tm.addTrack("Despacito", "Luis Fonsi","Al 2");
-            this.tm.addTrack("Enter Sandman", "Metallica","Al3");
+
+            tm.addAlbum("123",2000);
+            tm.addAlbum("Vente",1900);
+            tm.addAlbum("Baby",1800);
+
+            tm.addAutor("Natos","Tada",12345678);
+            tm.addAutor("Rafael","Pele",87654321);
+
+            tm.addTrack("Balada","Rafael","Vente");
+            tm.addTrack("Problemas","Natos","123");
+            tm.addTrack("Pepito","Natos","123");
+            tm.addTrack("Host","Rafael","Vente");
+            tm.addTrack("Fairplay","Rafael","Baby");
         }
     }
 
@@ -41,9 +53,8 @@ public class TracksService {
     public Response getTracks() {
 
         List<Track> tracks = this.tm.findAll();
-
         GenericEntity<List<Track>> entity = new GenericEntity<List<Track>>(tracks) {};
-        return Response.status(201).entity(entity).build()  ;
+        return Response.status(201).entity(entity).build();
 
     }
 

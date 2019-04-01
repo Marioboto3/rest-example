@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -26,9 +27,11 @@ public class TracksManagerTest {
 
         Track m = tmi.addTrack("Balada","Rafael","Vente");
         Track n = tmi.addTrack("Problemas","Natos","123");
+        tmi.addTrack("Pepito","Natos","123");
         Track o = tmi.addTrack("Host","Rafael","Vente");
         Track p = tmi.addTrack("Fairplay","Rafael","Baby");
     }
+
     @Test
     public void findByIdTest(){
 
@@ -58,6 +61,7 @@ public class TracksManagerTest {
     public void añadirTrackTest(){
         Album a=tmi.findByStringAlbum("123");
         assertEquals(1, a.getSize());
+        assertEquals(4,this.tmi.findAll().size());
     }
     @Test
     public void añadirAutorTest(){
@@ -102,12 +106,18 @@ public class TracksManagerTest {
     }
     @Test
     public void getTracksAutorTest(){
-        List<TrackTO> lista = tmi.getTracksAutor("Rafael");
-        assertEquals(3,lista.size());
+        List<TrackTO> lista = tmi.getTracksAutor("Natos");
+        assertEquals(2,lista.size());
     }
     @Test
     public void getAutorTest(){
         Autor autor = tmi.getAutor("Rafael");
         assertEquals("Rafael",autor.getNombre());
+    }
+    @Test
+    public void getTracksTest(){//He puesto un test para ver si creaba bien la lista
+        List<Track> trackList;
+        trackList = this.tmi.findAll();
+        assertEquals(5,trackList.size());
     }
 }

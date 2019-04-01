@@ -42,6 +42,7 @@ public class TracksManagerImpl implements TracksManager {
         if(a != null) {
             a.añadirTrack(t);
             b.añadirTrack(t);
+            this.tracks.add(t);//Tienes que añadirlo en la lista de tracks melon
             logger.info("new Track added");
             return t;
         }
