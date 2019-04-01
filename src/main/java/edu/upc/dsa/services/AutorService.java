@@ -2,27 +2,26 @@ package edu.upc.dsa.services;
 
 import edu.upc.dsa.TracksManager;
 import edu.upc.dsa.TracksManagerImpl;
-import edu.upc.dsa.models.Album;
-import edu.upc.dsa.models.AlbumTO;
-import edu.upc.dsa.models.Track;
-import edu.upc.dsa.models.TrackTO;
+import edu.upc.dsa.models.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.List;
 
-@Api(value = "/albums", description = "Endpoint to AlbumService Service")
-@Path("/albums")
-public class AlbumService {
+@Api(value = "/autores", description = "Endpoint to AlbumService Service")
+@Path("/autores")
+public class AutorService {
     private TracksManager tm;
-    public AlbumService() {
+    public AutorService() {
         this.tm = TracksManagerImpl.getInstance();
         if (tm.size() == 0) {
             this.tm.addTrack("La Barbacoa", "Georgie", "Al 1");
@@ -39,36 +38,33 @@ public class AlbumService {
         }
     }
     @GET
-    @ApiOperation(value = "get Album", notes = "asdasd")
+    @ApiOperation(value = "get Autor", notes = "asdasd")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successful", response = AlbumTO.class, responseContainer="List"),
     })
-    @Path("/{title}")
+    @Path("/{autor}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAlbum(@PathParam("title") String title) {
+    public Response getAutor(@PathParam("autor") String nameAutor) {
 
-        Album album = this.tm.getAlbum(title);
-        AlbumTO albumTO =this.tm.passAlbumToAlbumTO(album);
+        Autor autor = this.tm.getAutor(nameAutor);
+        AutorTO autorTO = this.tm.passAutorToAutorTO(autor);
 
-        GenericEntity<AlbumTO> entity = new GenericEntity<AlbumTO>(albumTO) {};
-        return Response.status(201).entity(entity).build()  ;
+        GenericEntity<AutorTO> entity = new GenericEntity<AutorTO>(autorTO) {};
+        return Response.status(201).entity(entity).build();
 
     }
     @GET
-    @ApiOperation(value = "get all Track of Album", notes = "asdasd")
+    @ApiOperation(value = "get all Autor's tracks", notes = "asdasd")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successful", response = Track.class, responseContainer="List"),
     })
-    @Path("/{title}")
+    @Path("/{autor}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTracksAlbum(@PathParam("title") String title) {
+    public Response getTracksAlbum(@PathParam("autor") String nameAutor) {
 
-        List<TrackTO> tracksTO = this.tm.getTracksAlbum(title);
+        List<TrackTO> tracksTO = this.tm.getTracksAutor(nameAutor);
         GenericEntity<List<TrackTO>> entity = new GenericEntity<List<TrackTO>>(tracksTO) {};
-        return Response.status(201).entity(entity).build()  ;
+        return Response.status(201).entity(entity).build();
 
     }
-
-
-
 }

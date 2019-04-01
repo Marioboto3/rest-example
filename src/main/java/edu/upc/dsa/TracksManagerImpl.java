@@ -77,17 +77,17 @@ public class TracksManagerImpl implements TracksManager {
     }
 
     @Override
+    public Autor getAutor(String nombre) {
+        Autor autor = this.findByNameAutor(nombre);
+        return autor;
+    }
+
+    @Override
     public AutorTO passAutorToAutorTO(Autor autor) {
         AutorTO autorTO = new AutorTO();
         autorTO.setNombre(autor.getNombre());
         autorTO.setApellido(autor.getApellido());
         autorTO.setDni(autor.getDni());
-        List<String>lista=new ArrayList<>();
-        for(Track t: autor.getList())
-        {
-            lista.add(t.getTitle());
-        }
-        autorTO.setList(lista);
         return autorTO;
     }
 
@@ -115,12 +115,7 @@ public class TracksManagerImpl implements TracksManager {
         AlbumTO albumTO = new AlbumTO();
         albumTO.setAño(album.getAño());
         albumTO.setTitle(album.getTitulo());
-        List<String> lista = new ArrayList<>();
-        for (Track t : album.getList())
-        {
-            lista.add(t.getTitle());
-        }
-        albumTO.setTracks(lista);
+        albumTO.setNumTracks(album.getSize());
         return albumTO;
     }
 
@@ -175,14 +170,31 @@ public class TracksManagerImpl implements TracksManager {
     }
 
     @Override
-    public List<Track> getTracksAutor(String nombre) {
+    public List<TrackTO> getTracksAutor(String nombre) {
         Autor a = findByNameAutor(nombre);
+        List<TrackTO> tracksTO = new ArrayList<>();
         if(a!=null)
         {
-            List<Track> lista=a.getList();
-            return lista;
+            List<Track> lista= a.getList();
+            for(Track t : lista)
+            {
+                tracksTO.add(this.passTracktoTrackTO(t));
+            }
         }
-        return null;
+        return tracksTO;
+    }
+
+    @Override
+    public List<TrackTO> getTracksAlbum(String tituloAlbum) {
+        Album album = this.getAlbum(tituloAlbum);
+        List<TrackTO> tracksTO = new ArrayList<>();
+        TrackTO trackTO = new TrackTO();
+        for(Track t: album.getList())
+        {
+            trackTO = this.passTracktoTrackTO(t);
+            tracksTO.add(trackTO);
+        }
+        return tracksTO;
     }
 
     @Override

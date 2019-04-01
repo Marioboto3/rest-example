@@ -65,20 +65,9 @@ public class TracksManagerTest {
         assertEquals("Rafael",s.getNombre());
     }
     @Test
-    public void getAlbumTest(){
-        Album a = tmi.getAlbum("123");
-        assertEquals(2000,a.getAño());
-    }
-    @Test
-    public void getTracksAutorTest(){
-        List<Track> lista = tmi.getTracksAutor("Rafael");
-        assertEquals(3,lista.size());
-    }
-    @Test
     public void passAlbumToAlbumTO(){
         Album a=tmi.findByStringAlbum("123");
         AlbumTO aTO = tmi.passAlbumToAlbumTO(a);
-        assertEquals(1,aTO.getSize());
         assertEquals("123",aTO.getTitle());
     }
     @Test
@@ -90,6 +79,35 @@ public class TracksManagerTest {
     }
     @Test
     public void passTrackToTrackTO(){
-    }
+        Album c = tmi.findByStringAlbum("123");
+        Track t = tmi.addTrack("Mivecina","Natos","123");
+        String id =t.getId();
+        c.añadirTrack(t);
+        Track track = tmi.findByIdTrack(id,"123");
+        assertEquals("Mivecina", track.getTitle());
+        TrackTO trackTO = tmi.passTracktoTrackTO(track);
+        assertEquals(track.getTitle(),trackTO.getTitle());
 
+    }
+    @Test
+    public void getTracksAlbumTest(){
+        Album a = tmi.findByStringAlbum("Vente");
+        List<TrackTO> lista = tmi.getTracksAlbum(a.getTitulo());
+        assertEquals(2,lista.size());
+    }
+    @Test
+    public void getAlbumTest(){
+        Album a = tmi.getAlbum("123");
+        assertEquals(2000,a.getAño());
+    }
+    @Test
+    public void getTracksAutorTest(){
+        List<TrackTO> lista = tmi.getTracksAutor("Rafael");
+        assertEquals(3,lista.size());
+    }
+    @Test
+    public void getAutorTest(){
+        Autor autor = tmi.getAutor("Rafael");
+        assertEquals("Rafael",autor.getNombre());
+    }
 }

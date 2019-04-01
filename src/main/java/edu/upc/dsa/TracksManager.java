@@ -13,7 +13,8 @@ public interface TracksManager {
     public void deleteTrack(String id);
     public Track updateTrack(Track t);
     public List<Track> findAll();
-    public List<Track> getTracksAutor(String nombre);
+    public List<TrackTO> getTracksAutor(String nombre);
+    public List<TrackTO> getTracksAlbum (String tituloAlbum);
     public TrackTO passTracktoTrackTO(Track t);
     //ALBUM
     public Album addAlbum (String titulo, int año);
@@ -21,6 +22,7 @@ public interface TracksManager {
     public AlbumTO passAlbumToAlbumTO(Album album);
     //AUTOR
     public Autor addAutor(String nombre, String apellido, int dni);
+    public Autor getAutor (String nombre);
     public AutorTO passAutorToAutorTO(Autor autor);
    //FIND
     public Track findByIdTrack(String id,String tituloAlbum);

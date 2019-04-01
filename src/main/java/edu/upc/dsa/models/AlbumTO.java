@@ -4,11 +4,18 @@ import java.util.List;
 
 public class AlbumTO {
     int año;
+    int numTracks;
     String title;
-    List<String> tracks;
 
     public AlbumTO() {
-        this.tracks = tracks;
+    }
+
+    public int getNumTracks() {
+        return numTracks;
+    }
+
+    public void setNumTracks(int numTracks) {
+        this.numTracks = numTracks;
     }
 
     public int getAño() {
@@ -19,21 +26,12 @@ public class AlbumTO {
         return title;
     }
 
-    public List<String> getTracks() {
-        return tracks;
-    }
-
     public void setAño(int año) {
         this.año = año;
     }
-    public int getSize(){
-        return this.tracks.size();
-    }
+
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setTracks(List<String> tracks) {
-        this.tracks = tracks;
-    }
 }
