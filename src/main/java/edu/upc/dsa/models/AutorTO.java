@@ -7,27 +7,32 @@ public class AutorTO {
     String nombre;
     String apellido;
     int dni;
-    List<String> list;
+    int numTracks;
+    int añoNacimiento;
 
-    public AutorTO(String nombre, String apellido, int dni) {
+    public AutorTO(String nombre, String apellido, int dni, int añoNacimiento) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
-        this.list=new ArrayList<>();
-
-    }
-    public AutorTO(){
-        this.list=new ArrayList<>();
+        this.añoNacimiento= añoNacimiento;
     }
 
-    public List<String> getList() {
-        return list;
+    public int getAñoNacimiento() {
+        return añoNacimiento;
     }
 
-    public void setList(List<String> list) {
-        this.list = list;
+    public void setNumTracks(int numTracks) {
+        this.numTracks = numTracks;
     }
-    public int getsize(){return this.list.size();}
+
+    public void setAñoNacimiento(int añoNacimiento) {
+        this.añoNacimiento = añoNacimiento;
+    }
+
+    public AutorTO(){}
+
+    public int getSize (){return this.numTracks;}
+
     public String getNombre() {
         return nombre;
     }

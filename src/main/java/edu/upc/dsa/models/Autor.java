@@ -9,17 +9,29 @@ public class Autor {
     String apellido;
     int dni;
     List<Track> list;
+    int añoNacimiento;
 
-    public Autor(String nombre, String apellido, int dni) {
+    public Autor(String nombre, String apellido, int dni, int añoNacimiento) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.list=new ArrayList<>();
+        this.añoNacimiento=añoNacimiento;
 
     }
     public Autor(){
        this.list=new ArrayList<>();
     }
+
+    public void setAñoNacimiento(int añoNacimiento) {
+        this.añoNacimiento = añoNacimiento;
+    }
+
+    public int getAñoNacimiento() {
+        return añoNacimiento;
+    }
+
+    public int getSize(){return this.list.size();}
 
     public List<Track> getList() {
         return list;

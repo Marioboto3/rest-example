@@ -26,14 +26,14 @@ public class TracksService {
 
     public TracksService() {
         this.tm = TracksManagerImpl.getInstance();
-        if (tm.size()==0) {
+        if (tm.sizeTracks()==0) {
 
             tm.addAlbum("123",2000);
             tm.addAlbum("Vente",1900);
             tm.addAlbum("Baby",1800);
 
-            tm.addAutor("Natos","Tada",12345678);
-            tm.addAutor("Rafael","Pele",87654321);
+            tm.addAutor("Natos","Tada",12345678, 1990);
+            tm.addAutor("Rafael","Pele",87654321, 1930);
 
             tm.addTrack("Balada","Rafael","Vente");
             tm.addTrack("Problemas","Natos","123");

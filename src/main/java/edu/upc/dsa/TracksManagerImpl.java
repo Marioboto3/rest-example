@@ -26,10 +26,22 @@ public class TracksManagerImpl implements TracksManager {
         return instance;
     }
 
-    public int size() {
+    public int sizeTracks() {
         int ret = this.tracks.size();
         logger.info("size " + ret);
 
+        return ret;
+    }
+
+    public int sizeAutors(){
+        int ret= this.autores.size();
+        logger.info("size" + ret);
+        return ret;
+    }
+
+    public int sizeAlbums(){
+        int ret = this.albumes.size();
+        logger.info("size" + ret);
         return ret;
     }
 
@@ -63,11 +75,11 @@ public class TracksManagerImpl implements TracksManager {
     }
 
     @Override
-    public Autor addAutor(String nombre, String apellido, int dni) {
+    public Autor addAutor(String nombre, String apellido, int dni, int añoNacimiento) {
         /*Autor a = findByName(nombre);*/
         /*if(a==null)
         {*/
-            Autor a = new Autor(nombre, apellido, dni);
+            Autor a = new Autor(nombre, apellido, dni, añoNacimiento);
             logger.info("new Autor" + a);
             this.autores.put(a.getNombre(),a);
             logger.info("new Autor added");
@@ -84,22 +96,6 @@ public class TracksManagerImpl implements TracksManager {
     }
 
     @Override
-    public AutorTO passAutorToAutorTO(Autor autor) {
-        AutorTO autorTO = new AutorTO();
-        autorTO.setNombre(autor.getNombre());
-        autorTO.setApellido(autor.getApellido());
-        autorTO.setDni(autor.getDni());
-        return autorTO;
-    }
-
-    public Track addTrack(Track t) {
-        logger.info("new Track " + t);
-
-        this.tracks.add (t);
-        logger.info("new Track added");
-        return t;
-    }
-
     public Album getAlbum(String titulo)
     {
         logger.info("getAlbum("+titulo+")");
@@ -108,18 +104,9 @@ public class TracksManagerImpl implements TracksManager {
             return a;
         }
         else return null;
-
     }
 
     @Override
-    public AlbumTO passAlbumToAlbumTO(Album album) {
-        AlbumTO albumTO = new AlbumTO();
-        albumTO.setAño(album.getAño());
-        albumTO.setTitle(album.getTitulo());
-        albumTO.setNumTracks(album.getSize());
-        return albumTO;
-    }
-
     public Track getTrack(String id) {
         logger.info("getTrack("+id+")");
 
@@ -134,8 +121,28 @@ public class TracksManagerImpl implements TracksManager {
         return null;
     }
 
-    public List<Track> findAll() {
-        return this.tracks;
+    @Override
+    public void deleteAutor(String nombre) {
+        Autor a = this.getAutor(nombre);
+
+        if (a==null) {
+            logger.warn("not found " + a);
+        }
+        else logger.info(a+" deleted ");
+
+        this.autores.remove(nombre);
+
+    }
+
+    @Override
+    public void deleteAlbum(String nombre) {
+        Album album = this.getAlbum(nombre);
+        if (album==null) {
+            logger.warn("not found " + album);
+        }
+        else logger.info(album+" deleted ");
+
+        this.albumes.remove(nombre);
     }
 
     @Override
@@ -148,7 +155,36 @@ public class TracksManagerImpl implements TracksManager {
         else logger.info(t+" deleted ");
 
         this.tracks.remove(t);
+    }
 
+    @Override
+    public AutorTO passAutorToAutorTO(Autor autor) {
+        AutorTO autorTO = new AutorTO();
+        autorTO.setNombre(autor.getNombre());
+        autorTO.setApellido(autor.getApellido());
+        autorTO.setDni(autor.getDni());
+        autorTO.setAñoNacimiento(autor.getAñoNacimiento());
+        autorTO.setNumTracks(autor.getSize());
+        return autorTO;
+    }
+
+    @Override
+    public AlbumTO passAlbumToAlbumTO(Album album) {
+        AlbumTO albumTO = new AlbumTO();
+        albumTO.setAño(album.getAño());
+        albumTO.setTitle(album.getTitulo());
+        albumTO.setNumTracks(album.getSize());
+        return albumTO;
+    }
+
+    @Override
+    public TrackTO passTracktoTrackTO(Track t) {
+        TrackTO trackTO = new TrackTO();
+        trackTO.setTitle(t.getTitle());
+        trackTO.setAutor(t.getAutor());
+        trackTO.setId(t.getId());
+        trackTO.setTituloAlbum(t.getTituloAlbum());
+        return trackTO;
     }
 
     @Override
@@ -198,14 +234,8 @@ public class TracksManagerImpl implements TracksManager {
         return tracksTO;
     }
 
-    @Override
-    public TrackTO passTracktoTrackTO(Track t) {
-        TrackTO trackTO = new TrackTO();
-        trackTO.setTitle(t.getTitle());
-        trackTO.setAutor(t.getAutor());
-        trackTO.setId(t.getId());
-        trackTO.setTituloAlbum(t.getTituloAlbum());
-        return trackTO;
+    public List<Track> findAll() {
+        return this.tracks;
     }
 
     @Override
@@ -242,4 +272,13 @@ public class TracksManagerImpl implements TracksManager {
         }
         else return null;
     }
+
+    public Track addTrack(Track t) {
+        logger.info("new Track " + t);
+
+        this.tracks.add (t);
+        logger.info("new Track added");
+        return t;
+    }
+
 }

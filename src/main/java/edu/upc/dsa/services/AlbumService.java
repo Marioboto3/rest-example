@@ -24,13 +24,13 @@ public class AlbumService {
     private TracksManager tm;
     public AlbumService() {
         this.tm = TracksManagerImpl.getInstance();
-        if (tm.size() == 0) {
+        if (tm.sizeTracks() == 0) {
             tm.addAlbum("123",2000);
             tm.addAlbum("Vente",1900);
             tm.addAlbum("Baby",1800);
 
-            tm.addAutor("Natos","Tada",12345678);
-            tm.addAutor("Rafael","Pele",87654321);
+            tm.addAutor("Natos","Tada",12345678, 1990);
+            tm.addAutor("Rafael","Pele",87654321, 1930);
 
             tm.addTrack("Balada","Rafael","Vente");
             tm.addTrack("Problemas","Natos","123");
@@ -65,5 +65,37 @@ public class AlbumService {
         List<TrackTO> tracksTO = this.tm.getTracksAlbum(title);
         GenericEntity<List<TrackTO>> entity = new GenericEntity<List<TrackTO>>(tracksTO) {};
         return Response.status(201).entity(entity).build()  ;
+    }
+    @DELETE
+    @ApiOperation(value = "delete a Album", notes = "asdasd")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful"),
+            @ApiResponse(code = 404, message = "Track not found")
+    })
+    @Path("/{nombre}")
+    public Response deleteAlbum(@PathParam("nombre") String nombre) {
+        Album a = this.tm.getAlbum(nombre);
+        if (a == null) return Response.status(404).build();
+        else this.tm.deleteAlbum(nombre);
+        return Response.status(201).build();
+    }
+
+    @POST
+    @ApiOperation(value = "create a new Album", notes = "asdasd")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response=AlbumTO.class),
+            @ApiResponse(code = 500, message = "Validation Error")
+
+    })
+
+    @Path("/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response newAlbum(AlbumTO album) {
+
+        if ((album.getTitle())==null || album.getAño()==0){
+            album.setNumTracks(0);
+            return Response.status(500).entity(album).build();}
+        this.tm.addAlbum(album.getTitle(),album.getAño());
+        return Response.status(201).entity(album).build();
     }
 }

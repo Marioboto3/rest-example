@@ -22,8 +22,8 @@ public class TracksManagerTest {
         Album c=tmi.addAlbum("Baby",1800);
 
 
-        Autor s= tmi.addAutor("Natos","Tada",12345678);
-        Autor t= tmi.addAutor("Rafael","Pele",87654321);
+        Autor s= tmi.addAutor("Natos","Tada",12345678, 1930);
+        Autor t= tmi.addAutor("Rafael","Pele",87654321,1990);
 
         Track m = tmi.addTrack("Balada","Rafael","Vente");
         Track n = tmi.addTrack("Problemas","Natos","123");
@@ -78,7 +78,7 @@ public class TracksManagerTest {
     public void passAutorToAutorTO(){
         Autor a=tmi.findByNameAutor("Rafael");
         AutorTO aTO= tmi.passAutorToAutorTO(a);
-        assertEquals(3,aTO.getsize());
+        assertEquals(3,aTO.getSize());
         assertEquals("Rafael",aTO.getNombre());
     }
     @Test
@@ -119,5 +119,19 @@ public class TracksManagerTest {
         List<Track> trackList;
         trackList = this.tmi.findAll();
         assertEquals(5,trackList.size());
+    }
+    @Test
+    public void deleteAutorTest(){
+        Autor autor = tmi.addAutor("Pesca","Polen",123456,1999);
+        assertEquals(3,tmi.sizeAutors());
+        tmi.deleteAutor("Pesca");
+        assertEquals(2,tmi.sizeAutors());
+    }
+    @Test
+    public void deleteAlbumTest(){
+        Album a = tmi.addAlbum("Yes",2010);
+        assertEquals(4,tmi.sizeAlbums());
+        tmi.deleteAlbum("Yes");
+        assertEquals(3,tmi.sizeAlbums());
     }
 }

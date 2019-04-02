@@ -13,6 +13,7 @@ public class AlbumTO {
     public int getNumTracks() {
         return numTracks;
     }
+    public AlbumTO(String title, int año){this.title=title; this.año=año;}
 
     public void setNumTracks(int numTracks) {
         this.numTracks = numTracks;
