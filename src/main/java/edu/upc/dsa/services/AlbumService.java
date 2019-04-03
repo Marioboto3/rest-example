@@ -66,20 +66,6 @@ public class AlbumService {
         GenericEntity<List<TrackTO>> entity = new GenericEntity<List<TrackTO>>(tracksTO) {};
         return Response.status(201).entity(entity).build()  ;
     }
-    @DELETE
-    @ApiOperation(value = "delete a Album", notes = "asdasd")
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful"),
-            @ApiResponse(code = 404, message = "Track not found")
-    })
-    @Path("/{nombre}")
-    public Response deleteAlbum(@PathParam("nombre") String nombre) {
-        Album a = this.tm.getAlbum(nombre);
-        if (a == null) return Response.status(404).build();
-        else this.tm.deleteAlbum(nombre);
-        return Response.status(201).build();
-    }
-
     @POST
     @ApiOperation(value = "create a new Album", notes = "asdasd")
     @ApiResponses(value = {
@@ -98,4 +84,34 @@ public class AlbumService {
         this.tm.addAlbum(album.getTitle(),album.getAño());
         return Response.status(201).entity(album).build();
     }
+    @PUT
+    @ApiOperation(value = "update a Album", notes = "asdasd")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful"),
+            @ApiResponse(code = 404, message = "Album not found")
+    })
+    @Path("/")
+    public Response updateAlbum(AlbumTO albumTO) {
+
+        AlbumTO a = this.tm.updateAlbumTO(albumTO);
+
+        if (a == null) {
+            return Response.status(404).build();
+        }
+        return Response.status(201).build();
+    }
+    @DELETE
+    @ApiOperation(value = "delete a Album", notes = "asdasd")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful"),
+            @ApiResponse(code = 404, message = "Track not found")
+    })
+    @Path("/{nombre}")
+    public Response deleteAlbum(@PathParam("nombre") String nombre) {
+        Album a = this.tm.getAlbum(nombre);
+        if (a == null) return Response.status(404).build();
+        else this.tm.deleteAlbum(nombre);
+        return Response.status(201).build();
+    }
+
 }

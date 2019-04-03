@@ -135,6 +135,27 @@ public class TracksManagerImpl implements TracksManager {
     }
 
     @Override
+    public AutorTO updateAutorTO(AutorTO aut) {
+        Autor autor = this.getAutor(aut.getNombre());
+
+        if (autor!=null) {
+            logger.info(autor+" rebut!!!! ");
+
+            autor.setNombre(aut.getNombre());
+            autor.setApellido(aut.getApellido());
+            autor.setAñoNacimiento(aut.getAñoNacimiento());
+            autor.setDni(aut.getDni());
+
+            logger.info(autor +" updated ");
+        }
+        else {
+            logger.warn("not found "+autor);
+        }
+    AutorTO a = this.passAutorToAutorTO(autor);
+        return a;
+    }
+
+    @Override
     public void deleteAlbum(String nombre) {
         Album album = this.getAlbum(nombre);
         if (album==null) {
@@ -143,6 +164,25 @@ public class TracksManagerImpl implements TracksManager {
         else logger.info(album+" deleted ");
 
         this.albumes.remove(nombre);
+    }
+
+    @Override
+    public AlbumTO updateAlbumTO(AlbumTO a) {
+        Album album = this.getAlbum(a.getTitle());
+
+        if (album!=null) {
+            logger.info(album+" rebut!!!! ");
+
+            album.setTitulo(a.getTitle());
+            album.setAño(a.getAño());
+
+            logger.info(album+" updated ");
+        }
+        else {
+            logger.warn("not found "+album);
+        }
+        AlbumTO albumTO = this.passAlbumToAlbumTO(album);
+        return albumTO;
     }
 
     @Override

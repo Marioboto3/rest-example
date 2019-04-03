@@ -134,4 +134,23 @@ public class TracksManagerTest {
         tmi.deleteAlbum("Yes");
         assertEquals(3,tmi.sizeAlbums());
     }
+    @Test
+    public void updateAlbumTest(){
+        Album al = tmi.addAlbum("Paz",20);
+        Album pe = tmi.addAlbum("Guerra", 90);
+        AlbumTO to = tmi.passAlbumToAlbumTO(al);
+        AlbumTO te = tmi.passAlbumToAlbumTO(pe);
+
+        to= tmi.updateAlbumTO(te);
+        assertEquals("Guerra",to.getTitle());
+    }
+    @Test
+    public void updateAutorTest(){
+        Autor a = tmi.addAutor("Marta","Delgado",111111,1998);
+        Autor b = tmi.addAutor("Marta","Nohacepasteles",999999,1998);
+        AutorTO c = tmi.passAutorToAutorTO(a);
+        AutorTO d = tmi.passAutorToAutorTO(b);
+        c=tmi.updateAutorTO(d);
+        assertEquals("Nohacepasteles",c.getApellido());
+    }
 }

@@ -20,11 +20,13 @@ public interface TracksManager {
     public Album addAlbum (String titulo, int año);
     public Album getAlbum(String nombre);
     public void deleteAlbum (String nombre);
+    public AlbumTO updateAlbumTO (AlbumTO a);
     public AlbumTO passAlbumToAlbumTO(Album album);
     //AUTOR
     public Autor addAutor(String nombre, String apellido, int dni, int añoNacimiento);
     public Autor getAutor (String nombre);
     public void deleteAutor (String nombre);
+    public AutorTO updateAutorTO (AutorTO aut);
     public AutorTO passAutorToAutorTO(Autor autor);
    //FIND
     public Track findByIdTrack(String id,String tituloAlbum);
